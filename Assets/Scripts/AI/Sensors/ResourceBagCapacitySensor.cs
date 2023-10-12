@@ -1,7 +1,7 @@
 ﻿using Sample;
 using UnityEngine;
 
-namespace Sensors
+namespace AI.Sensors
 {
     public class ResourceBagCapacitySensor : MonoBehaviour
     {

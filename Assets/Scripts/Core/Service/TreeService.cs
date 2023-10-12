@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using Tree = Sample.Tree;
 
 namespace Sensors
 {
     public class TreeService : MonoBehaviour
     {
-        [SerializeField] private List<GameObject> _trees = new();
+        [SerializeField] private List<Tree> _trees = new();
 
-        public List<GameObject> Trees => _trees;
+        public List<Tree> Trees => _trees;
     }
 }

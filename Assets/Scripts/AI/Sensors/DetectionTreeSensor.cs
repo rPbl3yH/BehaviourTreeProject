@@ -1,20 +1,25 @@
 using System;
 using System.Collections.Generic;
+using Sensors;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using Tree = Sample.Tree;
 
-namespace Sensors
+namespace AI.Sensors
 {
-    public class TreeFindSensor : MonoBehaviour
+    public class DetectionTreeSensor : MonoBehaviour
     {
+        public event Action<Tree> ClosetTreeFound;
+        
+
         [SerializeField] private TreeService _treeService;
 
         [SerializeField] private float _detectedDistance = 1f;
 
         [ShowInInspector]
         [ReadOnly]
-        private Transform _currentTree;
+        private Tree _currentTree;
     
         private void Update()
         {
@@ -24,18 +29,18 @@ namespace Sensors
             }
             else
             {
-                _currentTree = GetClosetTree();
+                SetClosetTree(GetClosetTree());
             }
         }
 
-        private Transform GetClosetTree()
+        private Tree GetClosetTree()
         {
             var detectedTrees = GetDetectedTrees(transform.position, _detectedDistance);
             
             if (detectedTrees.Count > 0)
             {
                 var randomId = Random.Range(0, detectedTrees.Count);
-                return detectedTrees[randomId].transform;
+                return detectedTrees[randomId];
             }
 
             return null;
@@ -46,13 +51,13 @@ namespace Sensors
             var distance = Vector3.Distance(_currentTree.transform.position, transform.position);
             if (distance > _detectedDistance)
             {
-                _currentTree = null;
+                SetClosetTree(null);
             }
         }
 
-        private List<GameObject> GetDetectedTrees(Vector3 position, float detectedDistance)
+        private List<Tree> GetDetectedTrees(Vector3 position, float detectedDistance)
         {
-            var result = new List<GameObject>();
+            var result = new List<Tree>();
 
             for (int i = 0; i < _treeService.Trees.Count; i++)
             {
@@ -65,6 +70,12 @@ namespace Sensors
             }
 
             return result;
+        }
+
+        private void SetClosetTree(Tree point)
+        {
+            _currentTree = point;
+            ClosetTreeFound?.Invoke(_currentTree);
         }
     }
 }
