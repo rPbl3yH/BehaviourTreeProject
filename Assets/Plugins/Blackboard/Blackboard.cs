@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Lessons.AI.HierarchicalStateMachine
+namespace Plugins.Blackboard
 {
     public sealed class Blackboard : MonoBehaviour
     {

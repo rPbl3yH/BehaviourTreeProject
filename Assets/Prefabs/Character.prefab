@@ -379,7 +379,6 @@ GameObject:
   - component: {fileID: 4167855360419639761}
   - component: {fileID: 4167855360428989981}
   - component: {fileID: 866354289877504397}
-  - component: {fileID: 3878403007817348949}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -439,19 +438,6 @@ MonoBehaviour:
   moveSpeed: 5
   resourceCapacity: 5
   animator: {fileID: 4167855360428989981}
---- !u!114 &3878403007817348949
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4167855360419474867}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13c766af4935414ba6a0990f21f163e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  character: {fileID: 866354289877504397}
 --- !u!1 &4167855360419474869
 GameObject:
   m_ObjectHideFlags: 0
