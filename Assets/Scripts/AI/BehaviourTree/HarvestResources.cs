@@ -1,4 +1,4 @@
-﻿namespace Sample.AI.BehaviourTree
+﻿namespace AI.BehaviourTree
 {
     public class HarvestResources 
     {

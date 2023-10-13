@@ -1,4 +1,5 @@
-﻿using AI.Sensors;
+﻿using AI.Blackboard;
+using AI.Sensors;
 using Plugins.Blackboard;
 using UnityEngine;
 using Tree = Sample.Tree;
@@ -8,7 +9,7 @@ namespace AI.Observers
     public class DetectionTreeObserver : MonoBehaviour
     {
         [SerializeField] private DetectionTreeSensor _detectionTreeSensor;
-        [SerializeField] private Blackboard _blackboard;
+        [SerializeField] private Plugins.Blackboard.Blackboard _blackboard;
         
         private void OnEnable()
         {

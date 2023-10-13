@@ -511,6 +511,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _blackboard: {fileID: 1274535016}
+  _speed: 5
 --- !u!1001 &291126236
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -958,8 +959,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9918d845f45643b448e2ca2952eb593a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _centralPoint: {fileID: 3878403007810148504}
   _treeService: {fileID: 846640421}
-  _detectedDistance: 1
+  _detectedDistance: 15
 --- !u!114 &695698719
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1669,8 +1671,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orderedNodes:
-  - {fileID: 169042304}
   - {fileID: 1364784652}
+  - {fileID: 169042304}
 --- !u!1 &1274535013
 GameObject:
   m_ObjectHideFlags: 0
@@ -1716,6 +1718,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e7b1ac21e174a2dabb887827a255eff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _character: {fileID: 3878403007810148505}
   _barnPoint: {fileID: 341374310}
   _stoppingDistance: 1
 --- !u!114 &1274535016

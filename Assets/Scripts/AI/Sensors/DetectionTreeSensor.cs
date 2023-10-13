@@ -12,10 +12,12 @@ namespace AI.Sensors
     {
         public event Action<Tree> ClosetTreeFound;
         
+        [SerializeField] private Transform _centralPoint;
 
         [SerializeField] private TreeService _treeService;
 
         [SerializeField] private float _detectedDistance = 1f;
+
 
         [ShowInInspector]
         [ReadOnly]
@@ -35,7 +37,7 @@ namespace AI.Sensors
 
         private Tree GetClosetTree()
         {
-            var detectedTrees = GetDetectedTrees(transform.position, _detectedDistance);
+            var detectedTrees = GetDetectedTrees(_centralPoint.position, _detectedDistance);
             
             if (detectedTrees.Count > 0)
             {
@@ -48,7 +50,8 @@ namespace AI.Sensors
 
         private void CheckDistance()
         {
-            var distance = Vector3.Distance(_currentTree.transform.position, transform.position);
+            var distance = Vector3.Distance(_currentTree.transform.position, _centralPoint.position);
+            
             if (distance > _detectedDistance)
             {
                 SetClosetTree(null);

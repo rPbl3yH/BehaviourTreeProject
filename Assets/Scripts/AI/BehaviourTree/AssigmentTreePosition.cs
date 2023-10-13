@@ -1,12 +1,18 @@
-﻿using Lessons.AI.LessonBehaviourTree;
-using Plugins.Blackboard;
+﻿using AI.Blackboard;
+using Lessons.AI.LessonBehaviourTree;
+using Sirenix.OdinInspector;
 using UnityEngine;
+using Tree = Sample.Tree;
 
-namespace Sample.AI.BehaviourTree
+namespace AI.BehaviourTree
 {
     public class AssigmentTreePosition : BehaviourNode
     {
-        [SerializeField] private Blackboard _blackboard;
+        [SerializeField] 
+        private Plugins.Blackboard.Blackboard _blackboard;
+
+        [ShowInInspector, ReadOnly] 
+        private Vector3 _targetPosition; 
         
         protected override void Run()
         {
@@ -14,7 +20,8 @@ namespace Sample.AI.BehaviourTree
             {
                 Return(false);
             }
-            
+
+            _targetPosition = value.transform.position;
             _blackboard.SetVariable(BlackboardKeys.MOVE_POSITION, value.transform.position);
             
             Return(true);
