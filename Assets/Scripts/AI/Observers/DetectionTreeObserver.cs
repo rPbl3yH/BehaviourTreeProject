@@ -1,6 +1,7 @@
 ﻿using AI.Blackboard;
 using AI.Sensors;
 using Plugins.Blackboard;
+using Sample;
 using UnityEngine;
 using Tree = Sample.Tree;
 
@@ -10,7 +11,7 @@ namespace AI.Observers
     {
         [SerializeField] private DetectionTreeSensor _detectionTreeSensor;
         [SerializeField] private Plugins.Blackboard.Blackboard _blackboard;
-        
+
         private void OnEnable()
         {
             _detectionTreeSensor.ClosetTreeFound += OnClosetTreeFound;

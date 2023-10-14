@@ -6,11 +6,9 @@ using UnityEngine;
 
 namespace AI.BehaviourTree
 {
-    public class MoveToTreePosition : BehaviourNode
+    public class BehaviourNode_MoveToPosition : BehaviourNode
     {
         [SerializeField] private Plugins.Blackboard.Blackboard _blackboard;
-        
-        [SerializeField] private float _speed;
         
         private Coroutine _coroutine;
         
@@ -23,16 +21,16 @@ namespace AI.BehaviourTree
                 return;
             }
 
-            _coroutine = StartCoroutine(MoveToPositionCoroutine(character.transform, movePosition));
+            _coroutine = StartCoroutine(MoveToPositionCoroutine(character, movePosition));
         }
 
-        private IEnumerator MoveToPositionCoroutine(Transform character, Vector3 position)
+        private IEnumerator MoveToPositionCoroutine(Character character, Vector3 position)
         {
             var stoppingDistance = _blackboard.GetVariable<float>(BlackboardKeys.TREE_STOPPING_DISTANCE);
             
             while (true)
             {
-                var distanceDirection = position - character.position;
+                var distanceDirection = position - character.transform.position;
                 
                 if (distanceDirection.magnitude <= stoppingDistance)
                 {
@@ -40,7 +38,7 @@ namespace AI.BehaviourTree
                 }
                 
                 var normalizedDirection = distanceDirection.normalized;
-                character.position += normalizedDirection * (Time.deltaTime * _speed);
+                character.Move(normalizedDirection);
                 yield return new WaitForFixedUpdate();
             }
         }

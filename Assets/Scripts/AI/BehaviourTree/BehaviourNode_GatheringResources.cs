@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using AI.Blackboard;
 using Lessons.AI.LessonBehaviourTree;
+using Sample;
 using UnityEngine;
 using Tree = Sample.Tree;
 
 namespace AI.BehaviourTree
 {
-    public class GatheringResources : BehaviourNode
+    public class BehaviourNode_GatheringResources : BehaviourNode
     {
         [SerializeField] 
         private Plugins.Blackboard.Blackboard _blackboard;
@@ -16,15 +17,18 @@ namespace AI.BehaviourTree
         private float _gatheringDelay = 1f;
         
         private Coroutine _coroutine;
+        private Character _character;
         
         protected override void Run()
         {
-            if (!_blackboard.TryGetVariable<Tree>(BlackboardKeys.TREE, out var tree))
+            if (!_blackboard.TryGetVariable<Tree>(BlackboardKeys.TREE, out var tree) ||
+                !_blackboard.TryGetVariable<Character>(BlackboardKeys.CHARACTER_ENTITY, out var character))
             {
                 Return(false);
                 return;
             }
 
+            _character = character;
             _coroutine = StartCoroutine(StartGatheringCoroutine(tree));
         }
 
@@ -32,9 +36,15 @@ namespace AI.BehaviourTree
         {
             while (true)
             {
+                if (_character.IsResourceBagFull())
+                {
+                    Return(true);
+                    yield break;
+                }             
+                
                 if (tree.HasResources())
                 {
-                    tree.TakeResource();
+                    _character.Chop(tree);
                 }
                 else
                 {
