@@ -1,6 +1,5 @@
 ﻿using AI.Blackboard;
 using Lessons.AI.LessonBehaviourTree;
-using Sample;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -16,13 +15,13 @@ namespace AI.BehaviourTree
         
         protected override void Run()
         {
-            if (!_blackboard.TryGetVariable<Barn>(BlackboardKeys.BARN_ENTITY, out var barn))
+            if (!_blackboard.TryGetVariable<Vector3>(BlackboardKeys.BARN_POSITION, out var barnPosition))
             {
                 Return(false);
             }
 
-            _targetPosition = barn.transform.position;
-            _blackboard.SetVariable(BlackboardKeys.MOVE_POSITION, barn.transform.position);
+            _targetPosition = barnPosition;
+            _blackboard.SetVariable(BlackboardKeys.MOVE_POSITION, barnPosition);
             
             Return(true);
         }

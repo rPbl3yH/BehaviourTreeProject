@@ -11,7 +11,6 @@ namespace AI.Blackboard
         [SerializeField] private Barn _barn;
         [SerializeField] private Transform _barnPoint;
         [SerializeField] private float _stoppingDistance = 1f;
-        [SerializeField] private int _backpackCapacity = 5;
         
         [ReadOnly] private Plugins.Blackboard.Blackboard _blackboard;
 
@@ -19,9 +18,8 @@ namespace AI.Blackboard
         {
             _blackboard = GetComponent<Plugins.Blackboard.Blackboard>();
             _blackboard.SetVariable(BlackboardKeys.BARN_POSITION, _barnPoint.position);
-            _blackboard.SetVariable(BlackboardKeys.TREE_STOPPING_DISTANCE, _stoppingDistance);
+            _blackboard.SetVariable(BlackboardKeys.STOPPING_DISTANCE, _stoppingDistance);
             _blackboard.SetVariable(BlackboardKeys.CHARACTER_ENTITY, _character);
-            _blackboard.SetVariable(BlackboardKeys.BACKPACK_CAPACITY, _backpackCapacity);
             _blackboard.SetVariable(BlackboardKeys.BARN_ENTITY, _barn);
         }
     }

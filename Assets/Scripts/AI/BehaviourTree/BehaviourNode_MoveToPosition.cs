@@ -26,7 +26,7 @@ namespace AI.BehaviourTree
 
         private IEnumerator MoveToPositionCoroutine(Character character, Vector3 position)
         {
-            var stoppingDistance = _blackboard.GetVariable<float>(BlackboardKeys.TREE_STOPPING_DISTANCE);
+            var stoppingDistance = _blackboard.GetVariable<float>(BlackboardKeys.STOPPING_DISTANCE);
             
             while (true)
             {

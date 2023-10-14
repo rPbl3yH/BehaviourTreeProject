@@ -34,25 +34,15 @@ namespace AI.BehaviourTree
 
         private IEnumerator StartGatheringCoroutine(Tree tree)
         {
-            while (true)
+            while (!_character.IsResourceBagFull())
             {
-                if (_character.IsResourceBagFull())
-                {
-                    Return(true);
-                    yield break;
-                }             
-                
-                if (tree.HasResources())
-                {
-                    _character.Chop(tree);
-                }
-                else
-                {
-                    Return(true);
-                }
+                _character.Chop(tree);
 
                 yield return new WaitForSeconds(_gatheringDelay);
-            }       
+            }   
+            
+            Return(true);
+            print("Resource Bag is full");
         }
 
         protected override void OnReturn(bool success)
