@@ -61,6 +61,7 @@ namespace AI.Sensors
                 if (distance < closetDistance)
                 {
                     closetTree = tree;
+                    closetDistance = distance;
                 }
             }
 
