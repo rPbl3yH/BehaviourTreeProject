@@ -36,13 +36,18 @@ namespace AI.BehaviourTree
         {
             while (!_character.IsResourceBagFull())
             {
+                if (!tree.HasResources())
+                {
+                    Return(false);
+                    yield break;
+                }
+                
                 _character.Chop(tree);
 
                 yield return new WaitForSeconds(_gatheringDelay);
             }   
             
             Return(true);
-            print("Resource Bag is full");
         }
 
         protected override void OnReturn(bool success)

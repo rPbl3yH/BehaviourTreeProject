@@ -608,6 +608,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _treeService: {fileID: 0}
+  _centerPoint: {fileID: 3680192503685104234}
 --- !u!114 &486513459401842669
 MonoBehaviour:
   m_ObjectHideFlags: 0

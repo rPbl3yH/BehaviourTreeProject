@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Sensors;
+using Core.Service;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -15,10 +15,13 @@ namespace AI.Sensors
         [SerializeField] 
         private TreeService _treeService;
 
+        [SerializeField] 
+        private Transform _centerPoint;
+        
         [ShowInInspector]
         [ReadOnly]
         private Tree _currentTree;
-    
+        
         private void Update()
         {
             if (_currentTree)
@@ -36,30 +39,32 @@ namespace AI.Sensors
 
         private Tree GetClosetTree()
         {
-            var detectedTrees = GetDetectedTrees();
-            
-            if (detectedTrees.Count > 0)
+            var trees = _treeService.GetAvailableTrees();
+            if (trees.Count == 0)
             {
-                var randomId = Random.Range(0, detectedTrees.Count);
-                return detectedTrees[randomId];
+                return null;
             }
 
-            return null;
-        }
-
-        private List<Tree> GetDetectedTrees()
-        {
-            var result = new List<Tree>();
-
-            for (int i = 0; i < _treeService.Trees.Count; i++)
+            var closetTree = trees[0];
+            var closetDistance = Vector3.Distance(_centerPoint.position, closetTree.transform.position);            
+            
+            for (int i = 0; i < trees.Count; i++)
             {
-                if (_treeService.Trees[i].HasResources())
+                var tree = trees[i];
+                if (!tree.HasResources())
                 {
-                    result.Add(_treeService.Trees[i]);
+                    continue;
+                }
+
+                var distance = Vector3.Distance(_centerPoint.position, tree.transform.position);
+                
+                if (distance < closetDistance)
+                {
+                    closetTree = tree;
                 }
             }
 
-            return result;
+            return closetTree;
         }
 
         private void SetClosetTree(Tree point)
