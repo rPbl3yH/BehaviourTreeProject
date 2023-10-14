@@ -12,12 +12,8 @@ namespace AI.Sensors
     {
         public event Action<Tree> ClosetTreeFound;
         
-        [SerializeField] private Transform _centralPoint;
-
-        [SerializeField] private TreeService _treeService;
-
-        [SerializeField] private float _detectedDistance = 1f;
-
+        [SerializeField] 
+        private TreeService _treeService;
 
         [ShowInInspector]
         [ReadOnly]
@@ -27,7 +23,10 @@ namespace AI.Sensors
         {
             if (_currentTree)
             {
-                CheckDistance();
+                if (!_currentTree.HasResources())
+                {
+                    SetClosetTree(null);
+                }
             }
             else
             {
@@ -37,7 +36,7 @@ namespace AI.Sensors
 
         private Tree GetClosetTree()
         {
-            var detectedTrees = GetDetectedTrees(_centralPoint.position, _detectedDistance);
+            var detectedTrees = GetDetectedTrees();
             
             if (detectedTrees.Count > 0)
             {
@@ -48,25 +47,13 @@ namespace AI.Sensors
             return null;
         }
 
-        private void CheckDistance()
-        {
-            var distance = Vector3.Distance(_currentTree.transform.position, _centralPoint.position);
-            
-            if (distance > _detectedDistance)
-            {
-                SetClosetTree(null);
-            }
-        }
-
-        private List<Tree> GetDetectedTrees(Vector3 position, float detectedDistance)
+        private List<Tree> GetDetectedTrees()
         {
             var result = new List<Tree>();
 
             for (int i = 0; i < _treeService.Trees.Count; i++)
             {
-                var distance = Vector3.Distance(_treeService.Trees[i].transform.position, position);
-            
-                if (distance <= detectedDistance)
+                if (_treeService.Trees[i].HasResources())
                 {
                     result.Add(_treeService.Trees[i]);
                 }
